@@ -11,9 +11,9 @@ class abstractEmployee
 
 class Employee : abstractEmployee
 {
-
-private:
+protected:
     string Name;
+private:
     string Company;
     int Age;
 
@@ -66,7 +66,8 @@ public:
 };
 
 // Inheritance
-class Developer : Employee
+// Inheritance is private by default, that's why we are adding public keyword
+class Developer : public Employee
 {
 public:
     string FavoriteProgrammingLanguage;
@@ -77,9 +78,13 @@ public:
     }
     void fixBug()
     {
-        std::cout << getName() << " Please fix your bug" << std::endl;
+        std::cout << Name << " Please fix your bug" << std::endl;
     }
 };
+
+class Teacher: Employee{
+
+}
 
 int main()
 {
@@ -90,5 +95,6 @@ int main()
     emp2.askForPromotion();
     Developer dev1 = Developer("Mike",23,"nano bot", "C++");
     dev1.fixBug();
+    dev1.askForPromotion();
     return 0;
 }
