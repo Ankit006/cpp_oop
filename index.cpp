@@ -13,6 +13,7 @@ class Employee : abstractEmployee
 {
 protected:
     string Name;
+
 private:
     string Company;
     int Age;
@@ -62,6 +63,9 @@ public:
         {
             std::cout << Name << " sorry no promotion for u" << std::endl;
         }
+    };
+    virtual void work(){
+        cout << Name << " is checking email, task backlog" << endl;
     }
 };
 
@@ -80,21 +84,50 @@ public:
     {
         std::cout << Name << " Please fix your bug" << std::endl;
     }
+    void work(){
+        cout << Name << " is fixing the bugs" << endl;
+    }
 };
 
-class Teacher: Employee{
+class Teacher : public Employee
+{
+public:
+    string Subject;
+    Teacher(string name, int age, string company, string subject) : Employee(name, company, age)
+    {
+        Subject = subject;
+    }
+    void prepareLesson()
+    {
+        cout << Name << " is preparing " << Subject << " lesson" << endl;
+    };
+    void work(){
+        cout << Name << " is teaching student" << endl;
+    }
 
-}
+};
 
-int main()
+int
+main()
 {
     Employee emp1("Devid", "Edgerunner", 18);
     emp1.introduce();
     Employee emp2("Lucy", "Netrunner", 18);
     emp2.introduce();
     emp2.askForPromotion();
-    Developer dev1 = Developer("Mike",23,"nano bot", "C++");
+    Developer dev1 = Developer("Mike", 23, "nano bot", "C++");
     dev1.fixBug();
     dev1.askForPromotion();
+    Teacher t = Teacher("Jack",23,"Code school", "History");
+    t.prepareLesson();
+    dev1.work();
+
+    // Polymorphism 
+    // It is nothing but accessing methods and properties of child class using parents 
+    // with the use of pointer.
+    Employee *e = &dev1;
+    Teacher *e1 = &t;
+    e->work();
+    e1->work();
     return 0;
 }
